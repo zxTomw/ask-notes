@@ -32,10 +32,12 @@ export default function RootLayout({
       >
         <SidebarProvider>
           <AppSidebar />
-          <main className="h-full w-full">
-            <SidebarTrigger />
-            {children}
-          </main>
+          <div className="h-dvh w-full">
+            <SidebarTrigger className="absolute top-5 pl-5" />
+            <main className="h-dvh w-full overflow-scroll">
+              <div className="p-5">{children}</div>
+            </main>
+          </div>
         </SidebarProvider>
       </body>
     </html>
