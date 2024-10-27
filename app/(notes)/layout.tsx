@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -30,14 +43,39 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider>
+        <SidebarProvider
+          style={
+            {
+              "--sidebar-width": "19rem",
+            } as React.CSSProperties
+          }
+        >
           <AppSidebar />
-          <div className="h-dvh w-full">
-            <SidebarTrigger className="absolute top-5 pl-5" />
-            <main className="h-dvh w-full overflow-scroll">
+          <SidebarInset>
+            <div className="flex-col fixed top-0 bg-background z-10">
+              <header className="flex h-16 shrink-0 items-center gap-2 px-4  w-full">
+                <SidebarTrigger className="-ml-1" />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#">
+                        Building Your Application
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </header>
+              <Separator orientation="horizontal" className="w-dvw" />
+            </div>
+            <main className="flex-1 w-full overflow-scroll">
               <div className="p-5">{children}</div>
             </main>
-          </div>
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>

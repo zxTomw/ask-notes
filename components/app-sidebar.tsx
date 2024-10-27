@@ -16,143 +16,31 @@ import { PersonIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 
 // This is sample data.
 const data = {
   navMain: [
     {
-      title: "Getting Started",
+      title: "Recent",
       url: "#",
       items: [
         {
           title: "Installation",
           url: "#",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Building Your Application",
-      url: "#",
-      items: [
-        {
-          title: "Routing",
-          url: "#",
-        },
-        {
-          title: "Data Fetching",
-          url: "#",
           isActive: true,
         },
         {
-          title: "Rendering",
-          url: "#",
-        },
-        {
-          title: "Caching",
-          url: "#",
-        },
-        {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "API Reference",
-      url: "#",
-      items: [
-        {
-          title: "Components",
-          url: "#",
-        },
-        {
-          title: "File Conventions",
-          url: "#",
-        },
-        {
-          title: "Functions",
-          url: "#",
-        },
-        {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Architecture",
-      url: "#",
-      items: [
-        {
-          title: "Accessibility",
-          url: "#",
-        },
-        {
-          title: "Fast Refresh",
-          url: "#",
-        },
-        {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Community",
-      url: "#",
-      items: [
-        {
-          title: "Contribution Guide",
+          title: "Project Structure",
           url: "#",
         },
       ],
@@ -180,7 +68,56 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </div>
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent></DropdownMenuContent>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    Profile
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Billing
+                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Settings
+                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Keyboard shortcuts
+                    <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      Invite users
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent>
+                        <DropdownMenuItem>Email</DropdownMenuItem>
+                        <DropdownMenuItem>Message</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>More...</DropdownMenuItem>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                  <DropdownMenuItem>
+                    New Team
+                    <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>GitHub</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem disabled>API</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  Log out
+                  <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
