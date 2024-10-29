@@ -26,29 +26,54 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 // This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "Recent",
-      url: "#",
-      items: [
-        {
-          title: "Installation",
-          url: "#",
-          isActive: true,
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-  ],
+
+export type SidebarData = {
+  navMain: {
+    title: string;
+    icon?: React.ReactNode;
+    url: string;
+    items: {
+      title: string;
+      url: string;
+      isActive?: boolean;
+    }[];
+  }[];
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export async function AppSidebarWrapper() {
+  const cookieStore = await cookies();
+  const client = createClient(cookieStore);
+  const { data: recent } = await client
+    .from("notes")
+    .select("title, id")
+    .limit(5);
+  const sidebarData: SidebarData = {
+    navMain: [
+      {
+        title: "Recent",
+        url: "#",
+        items: recent
+          ? recent.map((item) => ({
+              title: item.title as string,
+              url: `/${item.id}` as string,
+              isActive: false,
+            }))
+          : [],
+      },
+    ],
+  };
+  return <AppSidebar data={sidebarData} />;
+}
+
+export function AppSidebar({
+  data,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { data: SidebarData }) {
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -62,7 +87,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <PersonIcon className="size-4" />
                     </div>
                     <div className="flex flex-col gap-0.5 leading-none">
-                      <span className="font-semibold">Tom Wang</span>
+                      <span className="font-semibold">Guest</span>
                       <span className="">Free Account</span>
                     </div>
                   </div>
@@ -137,7 +162,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {item.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
                         <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
+                          <Link href={item.url}>{item.title}</Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}

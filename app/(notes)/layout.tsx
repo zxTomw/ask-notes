@@ -6,7 +6,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebarWrapper } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,6 +16,13 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
+import { Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -50,10 +57,10 @@ export default function RootLayout({
             } as React.CSSProperties
           }
         >
-          <AppSidebar />
-          <SidebarInset>
-            <div className="flex-col fixed top-0 bg-background z-10">
-              <header className="flex h-16 shrink-0 items-center gap-2 px-4  w-full">
+          <AppSidebarWrapper />
+          <SidebarInset className="flex-col flex h-dvh">
+            <div className=" top-0 bg-background z-10 w-full">
+              <header className="flex flex-row h-16  items-center gap-2 px-4  w-full">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <Breadcrumb>
@@ -69,12 +76,20 @@ export default function RootLayout({
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>
+                <div className="flex-grow" />
+                <Button size="icon" variant="outline">
+                  <Sparkles className="h-4 w-4" />
+                </Button>
               </header>
-              <Separator orientation="horizontal" className="w-dvw" />
+              <Separator orientation="horizontal" className="w-full" />
             </div>
-            <main className="flex-1 w-full overflow-scroll">
-              <div className="p-5">{children}</div>
-            </main>
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel>
+                <div className=" h-full overflow-scroll">{children}</div>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={20}></ResizablePanel>
+            </ResizablePanelGroup>
           </SidebarInset>
         </SidebarProvider>
       </body>
