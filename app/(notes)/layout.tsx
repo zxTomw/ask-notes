@@ -23,6 +23,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { Assistant } from "@/lib/assistant";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -88,7 +89,9 @@ export default function RootLayout({
                 <div className=" h-full overflow-scroll">{children}</div>
               </ResizablePanel>
               <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={20}></ResizablePanel>
+              <ResizablePanel defaultSize={20}>
+                <Assistant />
+              </ResizablePanel>
             </ResizablePanelGroup>
           </SidebarInset>
         </SidebarProvider>
