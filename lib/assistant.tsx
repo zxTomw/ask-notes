@@ -8,10 +8,12 @@ export function Assistant() {
   return (
     <div className="h-full">
       <div className="flex flex-col h-full">
-        <div className="flex flex-col flex-grow w-full"></div>
-        <div className="flex flex-row gap-5 items-center p-4">
-          <Input className="flex-grow mr-2" />
-          <Button size="icon" className="">
+        <div className="flex  justify-end flex-grow w-full flex-col-reverse">
+          {" "}
+        </div>
+        <div className="flex flex-row gap-2 items-center p-4">
+          <Input className="flex-grow" />
+          <Button size="icon" variant="ghost" className="">
             <PaperPlaneIcon />
           </Button>
         </div>
