@@ -3,10 +3,14 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { ResizablePanel } from "./ui/resizable";
+import { useAssistantPanel } from "./assistant-panel-context";
 
 export function Assistant() {
+  const { panelState } = useAssistantPanel();
+  if (panelState === "hidden") return null;
   return (
-    <div className="h-full">
+    <ResizablePanel id="assistant" order={2} defaultSize={20} minSize={15}>
       <div className="flex flex-col h-full">
         <div className="flex  justify-end flex-grow w-full flex-col-reverse">
           {" "}
@@ -18,6 +22,6 @@ export function Assistant() {
           </Button>
         </div>
       </div>
-    </div>
+    </ResizablePanel>
   );
 }

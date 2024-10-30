@@ -23,7 +23,11 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Assistant } from "@/lib/assistant";
+import { Assistant } from "@/components/assistant";
+import {
+  AssistantButton,
+  AssistantPanelProvider,
+} from "@/components/assistant-panel-context";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -61,39 +65,41 @@ export default function RootLayout({
         >
           <AppSidebarWrapper />
           <SidebarInset className="flex-col flex h-dvh">
-            <div className=" top-0 bg-background z-10 w-full">
-              <header className="flex flex-row h-16  items-center gap-2 px-4  w-full">
-                <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">
-                        Building Your Application
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-                <div className="flex-grow" />
-                <Button size="icon" variant="outline">
-                  <Sparkles className="h-4 w-4" />
-                </Button>
-              </header>
-              <Separator orientation="horizontal" className="w-full" />
-            </div>
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel>
-                <div className=" h-full overflow-scroll">{children}</div>
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={20}>
+            <AssistantPanelProvider>
+              <div className=" top-0 bg-background z-10 w-full">
+                <header className="flex flex-row h-16  items-center gap-2 px-4  w-full">
+                  <SidebarTrigger className="-ml-1" />
+                  <Separator orientation="vertical" className="mr-2 h-4" />
+                  <Breadcrumb>
+                    <BreadcrumbList>
+                      <BreadcrumbItem className="hidden md:block">
+                        <BreadcrumbLink href="#">
+                          Building Your Application
+                        </BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator className="hidden md:block" />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </Breadcrumb>
+                  <div className="flex-grow" />
+                  <AssistantButton />
+                </header>
+                <Separator orientation="horizontal" className="w-full" />
+              </div>
+
+              <ResizablePanelGroup
+                direction="horizontal"
+                autoSaveId="assistant-group"
+              >
+                <ResizablePanel id="main" order={1}>
+                  <div className=" h-full overflow-y-auto">{children}</div>
+                </ResizablePanel>
+                <ResizableHandle withHandle />
                 <Assistant />
-              </ResizablePanel>
-            </ResizablePanelGroup>
+              </ResizablePanelGroup>
+            </AssistantPanelProvider>
           </SidebarInset>
         </SidebarProvider>
       </body>
