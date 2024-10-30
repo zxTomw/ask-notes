@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -57,6 +58,16 @@ export function AssistantPanelProvider({
   children: React.ReactNode;
 }) {
   const [panelState, setPanelState] = useState<PanelState>("hidden");
+  useEffect(() => {
+    const savedState =
+      typeof window !== "undefined" ? localStorage.getItem("panelState") : null;
+    setPanelState(savedState === "visible" ? savedState : "hidden");
+  }, []);
+  useEffect(() => {
+    // Save panelState to localStorage whenever it changes
+    localStorage.setItem("panelState", panelState);
+    console.log("panelState", panelState);
+  }, [panelState]);
 
   return (
     <AssistantPanelContext.Provider value={{ panelState, setPanelState }}>
