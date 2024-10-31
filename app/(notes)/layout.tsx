@@ -16,8 +16,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   ResizableHandle,
   ResizablePanel,
