@@ -25,7 +25,7 @@ export default async function Page({
       <ForwardRefEditor
         className="w-full h-full "
         contentEditableClassName=" w-full outline-none prose border-dotted border-b-2"
-        markdown={data?.notes}
+        markdown={data?.notes || ""}
       />
     </div>
   );
